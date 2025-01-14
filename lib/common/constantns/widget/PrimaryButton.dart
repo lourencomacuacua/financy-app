@@ -9,13 +9,16 @@ class Primarybutton extends StatelessWidget {
   const Primarybutton({Key? key, this.onPressed, required this.text})
       : super(key: key);
 
+  final BorderRadius _borderRadius =
+      const BorderRadius.all(Radius.circular(38.0));
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.all(Radius.circular(34.0)),
+      borderRadius: _borderRadius,
       child: Ink(
+          height: 54.0,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(34.0)),
+            borderRadius: _borderRadius,
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -25,16 +28,15 @@ class Primarybutton extends StatelessWidget {
             ),
           ),
           child: InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(34.0)),
+            borderRadius: _borderRadius,
             onTap: onPressed,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(34.0)),
+                borderRadius: _borderRadius,
               ),
               alignment: Alignment.center,
-              height: 64.0,
               child: Text(text,
-                  style: AppTextStyles.midiumText18
+                  style: AppTextStyles.midiumText20
                       .copyWith(color: AppColors.white)),
             ),
           )),

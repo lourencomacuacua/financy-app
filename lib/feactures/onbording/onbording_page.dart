@@ -13,9 +13,8 @@ class OnbordingPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 0.0),
+          const SizedBox(height: 30.0),
           Expanded(
-            flex: 2,
             child: Container(
               color: AppColors.iceWhite,
               child: Image.asset('assets/images/man.png'),
@@ -31,22 +30,29 @@ class OnbordingPage extends StatelessWidget {
             style: AppTextStyles.midiumText
                 .copyWith(color: AppColors.greenlightTwo),
           ),
-          SizedBox(
-            height: 16.0,
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+            child: Primarybutton(
+              text: 'Get Started',
+              onPressed: () {},
+            ),
           ),
-          Primarybutton(
-            text: 'Get Started',
-            onPressed: () {},
-          ),
-          SizedBox(
-            height: 16.0,
-          ),
-          Text(
-            'Already have account> Log In',
-            style: AppTextStyles.smalText.copyWith(color: AppColors.grey),
+          RichText(
+            text: TextSpan(
+              text: 'Already have account ? ',
+              style: AppTextStyles.smalText.copyWith(color: AppColors.grey),
+              children: [
+                TextSpan(
+                  text: 'Log In',
+                  style: AppTextStyles.smalText
+                      .copyWith(color: AppColors.greenlightTwo),
+                ),
+              ],
+            ),
           ),
           const SizedBox(
-            height: 40.0,
+            height: 50.0,
           )
         ],
       ),

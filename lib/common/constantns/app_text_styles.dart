@@ -14,15 +14,15 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
   );
 
-  static const TextStyle midiumText18 = TextStyle(
+  static const TextStyle midiumText20 = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 18.0,
+    fontSize: 20.0,
     fontWeight: FontWeight.w600,
   );
 
   static const TextStyle smalText = TextStyle(
     fontFamily: 'Inter',
-    fontSize: 14.0,
+    fontSize: 16.0,
     fontWeight: FontWeight.w500,
   );
 }
