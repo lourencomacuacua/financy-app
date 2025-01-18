@@ -8,6 +8,7 @@ class AppColors {
   static const Color white = Color(0XFFFFFFFF);
   static const Color iceWhite = Color(0XFFEEF8F7);
   static const Color grey = Color(0XFF444444);
+  static const Color dartGrey = Color(0XFF666666);
   static const List<Color> greenGradient = [
     Color(0xFF63B5AF),
     Color(0xFF438883)
