@@ -57,6 +57,8 @@ class _SingUpPageState extends State<SingUpPage> {
                       }
                       return null;
                     },
+                    helperText:
+                        "Must have at leat 8 characters, 1 capital letter and 1 number",
                   ),
                   PasswordFormFiled(
                     labelText: "Confirm your password",

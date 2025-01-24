@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_page.dart';
@@ -15,6 +17,7 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? sufixIcon;
   final bool? obscureText;
   final FormFieldValidator<String>? validator;
+  final String? helperText;
 
   const CustomTextFormField({
     super.key,
@@ -29,6 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.sufixIcon,
     this.obscureText,
     this.validator,
+    this.helperText,
   });
 
   @override
@@ -40,12 +44,28 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     borderSide: BorderSide(color: AppColors.greenlightTwo),
   );
 
+  String? _helperText;
+  @override
+  void initState() {
+    super.initState();
+    _helperText = widget.helperText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: widget.padding ??
           const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       child: TextFormField(
+        onChanged: (value) {
+          if (value.length == 1) {
+            setState(() {
+              _helperText = null;
+            });
+          } else if (value.isEmpty) {
+            _helperText = widget.helperText;
+          }
+        },
         style: AppTextStyles.inputText.copyWith(color: AppColors.greenlightOne),
         obscureText: widget.obscureText ?? false,
         textInputAction: widget.textInputAction,
@@ -56,6 +76,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             widget.textCapitalization ?? TextCapitalization.none,
         validator: widget.validator, // Adicionei o validator aqui
         decoration: InputDecoration(
+          helperText: _helperText,
+          helperMaxLines: 3,
           suffix: widget.sufixIcon,
           hintText: widget.hintText,
           floatingLabelBehavior: FloatingLabelBehavior.always,

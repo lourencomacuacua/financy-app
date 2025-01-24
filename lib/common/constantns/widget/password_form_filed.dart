@@ -9,6 +9,7 @@ class PasswordFormFiled extends StatefulWidget {
   final String? hintText;
   final String? labelText;
   final FormFieldValidator<String>? validator;
+  final String? helperText;
 
   const PasswordFormFiled({
     super.key,
@@ -17,6 +18,7 @@ class PasswordFormFiled extends StatefulWidget {
     this.hintText,
     this.labelText,
     this.validator,
+    this.helperText,
   });
 
   @override
@@ -29,6 +31,7 @@ class _PasswordFormFiledState extends State<PasswordFormFiled> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      helperText: widget.helperText,
       validator:
           widget.validator, // Validação repassada para o CustomTextFormField
       obscureText: isHidden, // Controle de visibilidade do texto
