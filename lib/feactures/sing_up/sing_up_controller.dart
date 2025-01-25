@@ -1,9 +1,13 @@
 import 'dart:developer';
 
+import 'package:finaceiro/common/model/user_model.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
+import 'package:finaceiro/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class SingUpController extends ChangeNotifier {
+  final AuthService _service;
+  SingUpController(this._service);
   SingUpState _state = SignUpInitialState();
 
   void _changeState(SingUpState newState) {
@@ -13,18 +17,17 @@ class SingUpController extends ChangeNotifier {
 
   SingUpState get state => _state;
 
-  Future<bool> doSighUp() async {
+  Future<void> singUp(
+      {required String name,
+      required String email,
+      required String password}) async {
     _changeState(SignUpLoadingState());
     try {
-      await Future.delayed(const Duration(seconds: 2));
-
-      throw Exception("Erro ao logar");
-      log("Usuário logado");
+      await _service.signUp(name: name, email: email, password: password);
+      log("Usuário criado com sucesso!");
       _changeState(SignUpSuccessState());
-      return true;
     } catch (e) {
-      _changeState(SignUpErrorState());
-      return false;
+      _changeState(SignUpErrorState(e.toString()));
     }
   }
 }

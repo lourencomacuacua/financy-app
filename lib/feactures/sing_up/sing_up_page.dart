@@ -9,6 +9,7 @@ import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_controller.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
+import 'package:finaceiro/services/mock_auth_service.dart';
 import 'package:finaceiro/utils/validator.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +23,17 @@ class SingUpPage extends StatefulWidget {
 class _SingUpPageState extends State<SingUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
-  final _controller = SingUpController();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+
+  final _controller = SingUpController(MockAuthService());
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _controller.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -60,9 +68,10 @@ class _SingUpPageState extends State<SingUpPage> {
           ),
         );
       }
-
       if (_controller.state is SignUpErrorState) {
-        customModalBottomSheet(context);
+        final error = _controller.state as SignUpErrorState;
+        customModalBottomSheet(context,
+            content: error.message); // Passa a mensagem do erro
       }
     });
   }
@@ -89,14 +98,14 @@ class _SingUpPageState extends State<SingUpPage> {
               key: _formKey,
               child: Column(
                 children: [
-                  /*
                   CustomTextFormField(
+                    controller: _nameController,
                     labelText: "your name",
                     hintText: "enter your name",
                     validator: Validator.validateName,
                   ),
-                  */
                   CustomTextFormField(
+                    controller: _emailController,
                     labelText: "your e-mail",
                     hintText: "your@gmail.com",
                     validator: Validator.validateEmail,
@@ -126,7 +135,11 @@ class _SingUpPageState extends State<SingUpPage> {
                 final valid = _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  _controller.doSighUp();
+                  _controller.singUp(
+                    name: _nameController.text,
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
                 } else {
                   //     log("erro ao logar");
                 }
