@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
+import 'package:finaceiro/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class SingUpPage extends StatefulWidget {
@@ -16,6 +15,7 @@ class SingUpPage extends StatefulWidget {
 
 class _SingUpPageState extends State<SingUpPage> {
   final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,37 +38,31 @@ class _SingUpPageState extends State<SingUpPage> {
               key: _formKey,
               child: Column(
                 children: [
+                  /*
                   CustomTextFormField(
                     labelText: "your name",
+                    hintText: "enter your name",
+                    validator: Validator.validateName,
+                  ),
+                  */
+                  CustomTextFormField(
+                    labelText: "your e-mail",
                     hintText: "your@gmail.com",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
+                    validator: Validator.validateEmail,
                   ),
                   PasswordFormFiled(
+                    controller: _passwordController,
                     labelText: "Choose your password",
                     hintText: "********",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
+                    validator: Validator.validatePassword,
                     helperText:
                         "Must have at leat 8 characters, 1 capital letter and 1 number",
                   ),
                   PasswordFormFiled(
                     labelText: "Confirm your password",
                     hintText: "********",
-                    validator: (value) {
-                      if (value != null && value.isEmpty) {
-                        return "Esse campo não pode ser vazio";
-                      }
-                      return null;
-                    },
+                    validator: (value) => Validator.validateConfirmPassword(
+                        value, _passwordController.text),
                   )
                 ],
               )),
@@ -81,9 +75,9 @@ class _SingUpPageState extends State<SingUpPage> {
                 final valid = _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  log("Continuar lógica de login");
+                  //   log("Continuar lógica de login");
                 } else {
-                  log("erro ao logar");
+                  //     log("erro ao logar");
                 }
               },
             ),
