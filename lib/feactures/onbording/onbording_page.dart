@@ -5,6 +5,7 @@ import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
 import 'package:finaceiro/common/routes.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_page.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class OnbordingPage extends StatelessWidget {
@@ -43,14 +44,19 @@ class OnbordingPage extends StatelessWidget {
             ),
           ),
           RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
-              text: 'Already have account ? ',
+              text: 'Already have an account? ',
               style: AppTextStyles.smalText.copyWith(color: AppColors.grey),
               children: [
                 TextSpan(
                   text: 'Log In',
                   style: AppTextStyles.smalText
                       .copyWith(color: AppColors.greenlightTwo),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.pushNamed(context, NamesRoute.signIn);
+                    },
                 ),
               ],
             ),
