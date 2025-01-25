@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
+import 'package:finaceiro/feactures/sing_up/sing_up_controller.dart';
+import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
 import 'package:finaceiro/utils/validator.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +20,48 @@ class SingUpPage extends StatefulWidget {
 class _SingUpPageState extends State<SingUpPage> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _controller = SingUpController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.state is SignUpLoadingState) {
+        showDialog(
+            context: context,
+            builder: (context) => const Center(
+                  child: CircularProgressIndicator(),
+                ));
+      }
+      if (_controller.state is SignUpSuccessState) {
+        Navigator.pop(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const Scaffold(
+                      body: Center(
+                        child: Text("Nova Tela"),
+                      ),
+                    )));
+      }
+
+      if (_controller.state is SignUpErrorState) {
+        showDialog(
+            context: context,
+            builder: (context) => const SizedBox(
+                  height: 150.0,
+                  child: Text("Erro ao Logar. Tente novamente"),
+                ));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +121,7 @@ class _SingUpPageState extends State<SingUpPage> {
                 final valid = _formKey.currentState != null &&
                     _formKey.currentState!.validate();
                 if (valid) {
-                  //   log("Continuar lógica de login");
+                  _controller.doSighUp();
                 } else {
                   //     log("erro ao logar");
                 }
