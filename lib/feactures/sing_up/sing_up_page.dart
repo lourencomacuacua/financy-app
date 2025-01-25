@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
+import 'package:finaceiro/common/constantns/widget/custom_bottom_sheet.dart';
+import 'package:finaceiro/common/constantns/widget/custom_circular_progress_indicator.dart';
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_controller.dart';
@@ -34,30 +36,33 @@ class _SingUpPageState extends State<SingUpPage> {
     _controller.addListener(() {
       if (_controller.state is SignUpLoadingState) {
         showDialog(
-            context: context,
-            builder: (context) => const Center(
-                  child: CircularProgressIndicator(),
-                ));
+          context: context,
+          barrierDismissible:
+              false, // Impede que o usuário feche o diálogo manualmente
+          builder: (context) => const CustomCircularProgressIndicator(),
+        );
+      } else {
+        // Fecha o diálogo se o estado mudar para algo diferente de `SignUpLoadingState`
+        if (Navigator.canPop(context)) {
+          Navigator.pop(context);
+        }
       }
+
       if (_controller.state is SignUpSuccessState) {
-        Navigator.pop(context);
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const Scaffold(
-                      body: Center(
-                        child: Text("Nova Tela"),
-                      ),
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(
+              body: Center(
+                child: Text("Nova Tela"),
+              ),
+            ),
+          ),
+        );
       }
 
       if (_controller.state is SignUpErrorState) {
-        showDialog(
-            context: context,
-            builder: (context) => const SizedBox(
-                  height: 150.0,
-                  child: Text("Erro ao Logar. Tente novamente"),
-                ));
+        customModalBottomSheet(context);
       }
     });
   }

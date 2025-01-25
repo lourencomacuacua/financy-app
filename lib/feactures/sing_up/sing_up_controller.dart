@@ -17,6 +17,7 @@ class SingUpController extends ChangeNotifier {
     _changeState(SignUpLoadingState());
     try {
       await Future.delayed(const Duration(seconds: 2));
+
       throw Exception("Erro ao logar");
       log("Usuário logado");
       _changeState(SignUpSuccessState());
