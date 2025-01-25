@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
+import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/feactures/sing_up/sing_up_page.dart';
 import 'package:flutter/material.dart';
 
 class OnbordingPage extends StatelessWidget {
@@ -35,7 +37,9 @@ class OnbordingPage extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
             child: Primarybutton(
               text: 'Get Started',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, NamesRoute.signUp);
+              },
             ),
           ),
           RichText(
