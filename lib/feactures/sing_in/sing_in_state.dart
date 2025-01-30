@@ -6,7 +6,7 @@ class SignInLoadingState extends SingInState {}
 
 class SignInSuccessState extends SingInState {}
 
-class SignUpErrorState extends SingInState {
+class SignInErrorState extends SingInState {
   final String message;
-  SignUpErrorState(this.message);
+  SignInErrorState(this.message);
 }

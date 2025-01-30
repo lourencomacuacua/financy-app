@@ -8,6 +8,7 @@ import 'package:finaceiro/common/constantns/widget/custom_circular_progress_indi
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
 import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/locator.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_controller.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
 import 'package:finaceiro/services/mock_auth_service.dart';
@@ -28,7 +29,7 @@ class _SingUpPageState extends State<SingUpPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
 
-  final _controller = SingUpController(MockAuthService());
+  final _controller = locator.get<SingUpController>();
 
   @override
   void dispose() {

@@ -8,8 +8,10 @@ import 'package:finaceiro/common/constantns/widget/custom_circular_progress_indi
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
 import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/feactures/sing_in/sing_in_state.dart';
 
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
+import 'package:finaceiro/locator.dart';
 import 'package:finaceiro/services/mock_auth_service.dart';
 import 'package:finaceiro/utils/validator.dart';
 import 'package:flutter/gestures.dart';
@@ -29,13 +31,13 @@ class _SingInPageState extends State<SingInPage> {
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
 
-  final _controller = SingInController(MockAuthService());
+  final _controller = locator.get<SingInController>();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _controller.dispose();
+
     // TODO: implement dispose
     super.dispose();
   }
@@ -44,36 +46,40 @@ class _SingInPageState extends State<SingInPage> {
   void initState() {
     super.initState();
     _controller.addListener(() {
-      if (_controller.state is SignUpLoadingState) {
-        showDialog(
-          context: context,
-          barrierDismissible:
-              false, // Impede que o usuário feche o diálogo manualmente
-          builder: (context) => const CustomCircularProgressIndicator(),
-        );
+      if (_controller.state is SignInLoadingState) {
+        if (mounted) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const CustomCircularProgressIndicator(),
+          );
+        }
       } else {
-        // Fecha o diálogo se o estado mudar para algo diferente de `SignUpLoadingState`
-        if (Navigator.canPop(context)) {
+        if (mounted && Navigator.canPop(context)) {
           Navigator.pop(context);
         }
       }
 
-      if (_controller.state is SignUpSuccessState) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(
-                child: Text("Nova Tela"),
+      if (_controller.state is SignInSuccessState) {
+        if (mounted) {
+          log("Login bem-sucedido!"); // Verifique se chega aqui
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Scaffold(
+                body: Center(
+                  child: Text("Nova Tela"),
+                ),
               ),
             ),
-          ),
-        );
+          );
+        }
       }
-      if (_controller.state is SignUpErrorState) {
-        final error = _controller.state as SignUpErrorState;
-        customModalBottomSheet(context,
-            content: error.message); // Passa a mensagem do erro
+      if (_controller.state is SignInErrorState) {
+        final error = _controller.state as SignInErrorState;
+        if (mounted) {
+          customModalBottomSheet(context, content: error.message);
+        }
       }
     });
   }

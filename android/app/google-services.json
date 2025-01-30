@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "574190786024",
+    "project_id": "financeiro-f4604",
+    "storage_bucket": "financeiro-f4604.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574190786024:android:f44c421864cd62d120005d",
+        "android_client_info": {
+          "package_name": "com.example.finaceiro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7j0_oOqZcrYbBgj54q7OROb7Ix0ylKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
