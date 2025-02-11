@@ -7,7 +7,7 @@ import 'package:finaceiro/common/constantns/widget/custom_bottom_sheet.dart';
 import 'package:finaceiro/common/constantns/widget/custom_circular_progress_indicator.dart';
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
-import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/common/constantns/routes.dart';
 import 'package:finaceiro/locator.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_controller.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
@@ -60,16 +60,7 @@ class _SingUpPageState extends State<SingUpPage> {
       }
 
       if (_controller.state is SignUpSuccessState) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(
-                child: Text("Nova Tela"),
-              ),
-            ),
-          ),
-        );
+        Navigator.pushReplacementNamed(context, NamesRoute.home);
       }
       if (_controller.state is SignUpErrorState) {
         final error = _controller.state as SignUpErrorState;

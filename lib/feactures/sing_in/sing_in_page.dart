@@ -7,7 +7,7 @@ import 'package:finaceiro/common/constantns/widget/custom_bottom_sheet.dart';
 import 'package:finaceiro/common/constantns/widget/custom_circular_progress_indicator.dart';
 import 'package:finaceiro/common/constantns/widget/custom_text_form_field.dart';
 import 'package:finaceiro/common/constantns/widget/password_form_filed.dart';
-import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/common/constantns/routes.dart';
 import 'package:finaceiro/feactures/sing_in/sing_in_state.dart';
 
 import 'package:finaceiro/feactures/sing_up/sing_up_state.dart';
@@ -63,16 +63,7 @@ class _SingInPageState extends State<SingInPage> {
       if (_controller.state is SignInSuccessState) {
         if (mounted) {
           log("Login bem-sucedido!"); // Verifique se chega aqui
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Scaffold(
-                body: Center(
-                  child: Text("Nova Tela"),
-                ),
-              ),
-            ),
-          );
+          Navigator.pushReplacementNamed(context, NamesRoute.home);
         }
       }
       if (_controller.state is SignInErrorState) {

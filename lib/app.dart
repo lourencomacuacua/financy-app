@@ -1,4 +1,5 @@
-import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/common/constantns/routes.dart';
+import 'package:finaceiro/feactures/home/home_page.dart';
 import 'package:finaceiro/feactures/onbording/onbording_page.dart';
 import 'package:finaceiro/feactures/sing_in/sing_in_page.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_page.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
         NamesRoute.splash: (context) => const SplashPage(),
         NamesRoute.signUp: (context) => const SingUpPage(),
         NamesRoute.signIn: (context) => const SingInPage(),
+        NamesRoute.home: (context) => const HomePage(),
       },
     );
   }

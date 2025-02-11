@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:finaceiro/common/constantns/app_colors.dart';
 import 'package:finaceiro/common/constantns/app_text_styles.dart';
 import 'package:finaceiro/common/constantns/widget/PrimaryButton.dart';
-import 'package:finaceiro/common/routes.dart';
+import 'package:finaceiro/common/constantns/routes.dart';
 import 'package:finaceiro/feactures/sing_up/sing_up_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
