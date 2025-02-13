@@ -27,7 +27,7 @@ void main() {
       id: '1a2b3c4d5e',
     );
 
-    setup(authService: mockFirebaseAuthService);
+   
   });
 
   group('Tests sign ups', () {

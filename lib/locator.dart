@@ -9,16 +9,24 @@ import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
 
-void setup({AuthService? authService}) {
-  locator.registerLazySingleton<AuthService>(() =>
-      authService ??
-      FirebaseAuthService()); // Usa o mock se fornecido, senão o Firebase real
+void setup(
+    {AuthService? authService,
+    SecureStorage? secureStorage,
+    SingUpController? signUpController}) {
+  locator.registerLazySingleton<AuthService>(
+      () => authService ?? FirebaseAuthService());
 
-  locator.registerFactory<SplashController>(
-      () => SplashController(const SecureStorage()));
+  locator.registerLazySingleton<SecureStorage>(
+      () => secureStorage ?? SecureStorage());
+
+  locator.registerFactory<SingUpController>(() => SingUpController(
+        locator.get<AuthService>(),
+        const SecureStorage(),
+      ));
 
   locator.registerFactory<SingInController>(
       () => SingInController(locator.get<AuthService>()));
-  locator.registerFactory<SingUpController>(
-      () => SingUpController(locator.get<AuthService>()));
+
+  locator.registerFactory<SplashController>(
+      () => SplashController(locator.get<SecureStorage>()));
 }
