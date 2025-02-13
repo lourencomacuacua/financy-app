@@ -53,7 +53,7 @@ class SingInController extends ChangeNotifier {
     const secureStorage = SecureStorage();
     _changeState(SignInLoadingState());
     try {
-      final user = await _service.signUp(email: email, password: password);
+      final user = await _service.signIn(email: email, password: password);
       if (user.id != null) {
         await secureStorage.write(key: "CURRENT_USER", value: user.toJson());
         _changeState(SignInSuccessState());
