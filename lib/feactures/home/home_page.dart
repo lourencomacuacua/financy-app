@@ -10,25 +10,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _secureStorage = const SecureStorage();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Nova Tela"),
-            ElevatedButton(
-                onPressed: () {
-                  _secureStorage.deleteOne(key: "CURRENT_USER").then(
-                        (_) => Navigator.popAndPushNamed(
-                            context, NamesRoute.initial),
-                      );
-                },
-                child: Text("Logout")),
-          ],
-        ),
+        child: Text("Home"),
       ),
     );
   }
